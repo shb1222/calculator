@@ -1,0 +1,101 @@
+<!DOCTYPE html> 
+<html lang="fa" dir="rtl">
+    <head>
+        <meta charset="UTF-8">
+        <title>ماشین حساب</title> 
+        <style>
+            body {
+              font-family: Tahoma, Arial, sans-serif;
+              background: #f0f4f8;
+              text-align: center;
+              padding: 40px 16px;
+            }
+            .calc {
+                background: white;
+                max-width: 420px;
+                margin: 0 auto;
+                padding: 240px;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+            input, select {
+                padding: 10px;
+                font-size: 18px;
+                border: 1px solid #cbd5e0;
+                border-radius: 8px;
+                width: 90px;
+            }
+            button {
+                padding: 10px 24px;
+                font-size: 18px;
+                background: #3182ce;
+                color: white;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+            button:hover {
+                background: #2b6cb0;
+            }
+            #result {
+                .author {
+                    color: #718096;
+                    font-size: 16px;
+                    margin-bottom: 24px;
+                }
+                font-size: 22px;
+                margin-top: 20px;
+            }   
+        </style>
+    </head>
+    <body>
+        <p class="author">شایان بهزادی</p>
+        <h1>ماشین حساب</h1> 
+        <div class="calc">
+        <input type="number" id="num1" autofocus> 
+
+        <select id="op">
+            <option value="+">+</option>
+              <option value="-">-</option>
+                <option value="*">&times;</option>
+                  <option value="/">&divide;</option>
+        </select>
+        <input type="number" id="num2">
+        <button onclick="calculate()">محاسبه</button>
+        <p id="result"></p>
+        </div>
+        <script>
+            function calculate() {
+                let a = Number(document.getElementById("num1").value);
+                let b = Number(document.getElementById("num2").value);
+                let op = document.getElementById("op").value;
+                let result;
+
+                if (op === "+") result = a + b;
+                if (op === "-") result = a - b;
+                if (op === "*") result = a * b;
+                if (op === "/") {
+                    if (b === 0) {
+                        result = "تقسیم بر صفر ممکن نیست";
+                    } else {
+                        result = a / b;
+                    }
+                }
+                document.getElementById("result").textContent = "نتیجه: " + result;
+            }
+            document.addEventListener("keydown", function (e) {
+                let ops = ["+", "-", "*", "/"];
+
+                if (ops.includes(e.key)) {
+                    if (e.key === "-" && document.activeElement.value === "") return;
+                    e.preventDefault();
+                    document.getElementById("op").value = e.key;
+                    document.getElementById("num2").focus();
+                }
+                if (e.key === "Enter") {
+                    calculate(); 
+                }
+            });
+        </script>
+    </body>
+</html>
